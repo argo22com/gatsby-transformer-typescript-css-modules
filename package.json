@@ -1,6 +1,6 @@
 {
   "name": "gatsby-transformer-typescript-css-modules",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A gatsbyjs transformer plugin for using CSS/SCSS Modules and Typescript",
   "main": "index.js",
   "scripts": {
