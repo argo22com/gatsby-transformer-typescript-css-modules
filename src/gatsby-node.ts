@@ -1,54 +1,42 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const { defaults } = require("./defaults");
+/**
+ * See documentation here: https://www.gatsbyjs.org/docs/add-custom-webpack-config/
+ *
+ * @param getConfig
+ * @param stage
+ * @param actions
+ * @param loaders
+ * @param rules
+ */
+exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) => {
+    const config = getConfig()
+    const typingsLoaderConfig = [
+        loaders.miniCssExtract(),
+        loaders.css({ importLoaders: 1}),
+        loaders.postCss(),
+        {
+            loader  : 'typings-for-css-modules-loader',
+            options : {
+                modules         : true,
+                importLoaders   : 1,
+                localIndentName : '[path]___[name]__[local]___[hash:base64:5]',
+                namedExport     : true,
+                camelCase       : true
+            }
+        }
+    ]
 
-const postCssLoader = "postcss-loader";
-const cssLoader = "typings-for-css-modules-loader";
-
-exports.modifyWebpackConfig = ({ config, stage }, options) => {
-  config.removeLoader("cssModules");
-
-  const cssFiles = /\.module\.css$/;
-  const configuration = JSON.stringify({
-    ...defaults,
-    ...options,
-  });
-  const loader = `${cssLoader}?${configuration}`;
-
-  switch (stage) {
-    case "develop": {
-      config.loader("cssModules", {
-        test: cssFiles,
-        loaders: ["style-loader", loader, postCssLoader],
-      });
-
-      return config;
-    }
-    case "build-css": {
-      config.loader("cssModules", {
-        test: cssFiles,
-        loader: ExtractTextPlugin.extract("style-loader", [
-          loader,
-          postCssLoader,
-        ]),
-      });
-
-      return config;
-    }
-    case "develop-html":
-    case "build-html":
-    case "build-javascript": {
-      config.loader("cssModules", {
-        test: cssFiles,
-        loader: ExtractTextPlugin.extract("style-loader", [
-          loader,
-          postCssLoader,
-        ]),
-      });
-
-      return config;
-    }
-    default: {
-      return config;
-    }
-  }
-};
+    actions.setWebpackConfig({
+        module : {
+            rules : [
+                {
+                    test : /\.module\.css$/,
+                    use  : typingsLoaderConfig
+                },
+                {
+                    test : /\.module\.scss$/,
+                    use  : typingsLoaderConfig
+                }
+            ]
+        }
+    })
+}
