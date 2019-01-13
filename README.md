@@ -1,27 +1,28 @@
-[![Build Status](https://travis-ci.org/jcreamer898/gatsby-plugin-typescript-css-modules.svg?branch=master)](https://travis-ci.org/jcreamer898/gatsby-plugin-typescript-css-modules)
+## Forked From
+
+[https://github.com/jcreamer898/gatsby-plugin-typescript-css-modules](https://github.com/jcreamer898/gatsby-plugin-typescript-css-modules)
 
 # Gatsby Plugin Typescript CSS Modules
-This [GatsbyJS](gatsbyjs.org) plugin allows for using TypeScript along side CSS Modules.
+This [GatsbyJS](gatsbyjs.org) plugin adds [typings-for-css-modules-loader](https://github.com/Jimdo/typings-for-css-modules-loader) to your configuration 
 
-It requires you to name your css files as `page.module.css`, but from there you can import them into TS files.
-
+Import styles normally
 ```ts
 import * as styles from "./page.module.css";
 ```
 
-The way this works is, under the covers the https://github.com/Jimdo/typings-for-css-modules-loader WebPack plugin reads the CSS file and generates a `.d.ts` file alongside your css.
+and typings-for-css-modules-loader will read the CSS file and generates a `.d.ts` file alongside your css.
 
 ### Installing
 First, install the plugin...
 
 ```bash
-npm i gatsby-plugin-typescript-css-modules
+npm i gatsby-transformer-typescript-css-modules --save
 ```
 
 Then, add the plugin to your `gatsby-config.js`...
 
 ```js
   // ...
-  "gatsby-plugin-typescript-css-modules"
+  "gatsby-transformer-typescript-css-modules"
 ]
 ```
