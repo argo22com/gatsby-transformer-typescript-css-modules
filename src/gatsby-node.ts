@@ -8,33 +8,41 @@
  * @param rules
  */
 exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) => {
-    const config = getConfig()
-    const typingsLoaderConfig = [
-        loaders.miniCssExtract(),
-        loaders.css({ importLoaders: 1}),
-        loaders.postcss(),
-        {
-            loader  : 'typings-for-css-modules-loader',
-            options : {
-                modules         : true,
-                importLoaders   : 1,
-                localIndentName : '[path]___[name]__[local]___[hash:base64:5]',
-                namedExport     : true,
-                camelCase       : true
-            }
-        }
-    ]
-
     actions.setWebpackConfig({
         module : {
             rules : [
                 {
                     test : /\.module\.css$/,
-                    use  : typingsLoaderConfig
+                    use  : [
+                        loaders.miniCssExtract(),
+                        loaders.css({ importLoaders: 1}),
+                        {
+                            loader  : 'typings-for-css-modules-loader',
+                            options : {
+                                modules         : true,
+                                importLoaders   : 1,
+                                localIndentName : '[path]___[name]__[local]___[hash:base64:5]',
+                                namedExport     : true,
+                                camelCase       : true
+                            }
+                        }
+                    ]
                 },
                 {
                     test : /\.module\.scss$/,
-                    use  : typingsLoaderConfig
+                    use  : [
+                        loaders.style(),
+                        {
+                            loader  : 'typings-for-css-modules-loader',
+                            options : {
+                                modules         : true,
+                                importLoaders   : 1,
+                                localIndentName : '[path]___[name]__[local]___[hash:base64:5]',
+                                namedExport     : true,
+                                camelCase       : true
+                            }
+                        }
+                    ]
                 }
             ]
         }
