@@ -14,6 +14,7 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) 
                 {
                     test : /\.module\.css$/,
                     use  : [
+                        loaders.style(),
                         loaders.miniCssExtract(),
                         loaders.css(),
                         loaders.postcss(),
