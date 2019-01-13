@@ -12,7 +12,7 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) 
     const typingsLoaderConfig = [
         loaders.miniCssExtract(),
         loaders.css({ importLoaders: 1}),
-        loaders.postCss(),
+        loaders.postcss(),
         {
             loader  : 'typings-for-css-modules-loader',
             options : {
