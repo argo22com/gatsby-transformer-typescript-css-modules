@@ -49,4 +49,16 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) 
             ]
         }
     })
+
+    const configAfterSettings = getConfig()
+    // Losing my mind here.
+    configAfterSettings.module.rules = configAfterSettings.module.rules.filter(rule => {
+        if (Object.prototype.hasOwnProperty.call(rule, 'oneOf')) {
+            // Nuke this rule.
+            return JSON.stringify(rule).indexOf('style-loader') === -1
+        }
+        return true
+    })
+
+    actions.replaceWebpackConfig(configAfterSettings)
 }
