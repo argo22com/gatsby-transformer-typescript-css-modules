@@ -15,7 +15,8 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) 
                     test : /\.module\.css$/,
                     use  : [
                         loaders.miniCssExtract(),
-                        loaders.css({ importLoaders: 1}),
+                        loaders.css(),
+                        loaders.postcss(),
                         {
                             loader  : 'typings-for-css-modules-loader',
                             options : {
@@ -41,7 +42,8 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) 
                                 namedExport     : true,
                                 camelCase       : true
                             }
-                        }
+                        },
+                        loaders.sass()
                     ]
                 }
             ]
