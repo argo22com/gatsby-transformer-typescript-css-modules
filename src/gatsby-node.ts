@@ -43,8 +43,7 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) 
                                 namedExport     : true,
                                 camelCase       : true
                             }
-                        },
-                        loaders.sass()
+                        }
                     ]
                 }
             ]
