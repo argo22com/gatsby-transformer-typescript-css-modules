@@ -53,10 +53,10 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, actions, loaders, rules }) 
             module : {
                 rules : [{
                     oneOf: [
-                        {
-                            test: CSS_PATTERN,
-                            use: typingLoader
-                        },
+                        // {
+                        //     test: CSS_PATTERN,
+                        //     use: typingLoader
+                        // },
                         {
                             test: MODULE_CSS_PATTERN,
                             use: typingLoader
